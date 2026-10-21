@@ -45,21 +45,19 @@
   <header>USDT</header>
   <section class="qr-area" aria-label="Deposit QR code">
     <img src="qr.png" alt="Custom USDT BEP-20 QR code" onerror="this.style.display='none';document.getElementById('qr-fallback').style.display='block'" />
-    <div class="qr-fallback" id="qr-fallback">Place your QR image named<br><strong>qr.png
-
-    </strong><br>in the same folder as index.html</div>
+    <div class="qr-fallback" id="qr-fallback">Place your QR image named<br><strong>qr.png</strong><br>in the same folder as index.html</div>
   </section>
   <p class="trust-note">Note: This QR code is only scannable with Trust Wallet.</p>
   <div class="help"><span class="play">▶</span> How Buy Quota?</div>
   <section class="network">Network: BEP-20 (BNB Smart Chain)</section>
   <section class="fee"><span class="info">!</span><span>You pay network fee.</span></section>
-  <div class="calc-heading"><span>Calculator</span><span class="ratio">Ratio: 1 USDT = 106 INR</span></div>
+  <div class="calc-heading"><span>Calculator</span><span class="ratio">Ratio: 1 USDT = 109 INR</span></div>
   <input class="amount" id="amount" type="number" min="0" step="any" inputmode="decimal" value="1000" aria-label="USDT amount" />
   <div class="summary" aria-live="polite">
-    <div>Estimated bonus: <strong id="bonus">2120.00</strong>(2%) INR</div>
+    <div>Estimated bonus: <strong id="bonus">2180.00</strong> (2%) INR</div>
     <div>Activity ⓘ : <strong>318.00</strong> INR</div>
     <div>First Top up: <strong>99</strong> INR</div>
-    <div>Total: <strong id="total">108537.00</strong> INR</div>
+    <div>Total: <strong id="total">111597.00</strong> INR</div>
   </div>
   <p class="notice">• After the recharge is completed, please wait 3–5 minutes for the deposit to arrive.</p>
   <nav class="bottom" aria-label="Bottom navigation">
@@ -71,13 +69,16 @@
   </nav>
 </main>
 <script>
+  const USDT_TO_INR = 109;
+  const ACTIVITY_BONUS_INR = 318;
+  const FIRST_TOP_UP_BONUS_INR = 99;
   const amount = document.getElementById('amount');
   function updateCalculator() {
     const usdt = Math.max(0, Number(amount.value) || 0);
-    const inr = usdt * 106;
+    const inr = usdt * USDT_TO_INR;
     const bonus = inr * 0.02;
     document.getElementById('bonus').textContent = bonus.toFixed(2);
-    document.getElementById('total').textContent = (inr + bonus + 318 + 99).toFixed(2);
+    document.getElementById('total').textContent = (inr + bonus + ACTIVITY_BONUS_INR + FIRST_TOP_UP_BONUS_INR).toFixed(2);
   }
   amount.addEventListener('input', updateCalculator);
   updateCalculator();
