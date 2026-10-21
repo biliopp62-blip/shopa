@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f8fbff" />
+  <title>USDT Deposit — BEP-20</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --blue:#1458e9; --text:#1251c3; --bg:#f8fbff; --line:#e4edfa; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#e8eef7; color:var(--text); font-family:Inter,Arial,sans-serif; }
+    .phone { width:100%; max-width:440px; min-height:100dvh; margin:auto; position:relative; background:var(--bg); padding:0 23px 116px; box-shadow:0 4px 35px #25417118; }
+    header { height:95px; display:flex; align-items:flex-end; padding-bottom:19px; justify-content:center; color:var(--blue); font-size:21px; font-weight:600; }
+    .qr-area { margin:31px auto 35px; width:246px; max-width:75%; display:flex; align-items:center; justify-content:center; aspect-ratio:1; }
+    .qr-area img { display:block; width:100%; height:100%; object-fit:contain; image-rendering:auto; }
+    .qr-fallback { display:none; border:2px dashed #a5bce8; border-radius:12px; text-align:center; padding:22px; color:#537ab5; font-size:14px; line-height:1.8; }
+    .trust-note { text-align:center; font-size:12px; font-weight:600; color:#2056b4; margin:-18px 0 30px; }
+    .help { display:flex; align-items:center; gap:13px; margin:14px 0 26px; font-size:17px; font-weight:600; }
+    .play { display:grid; place-items:center; width:27px; height:27px; border:2px solid var(--blue); border-radius:50%; font-size:11px; padding-left:2px; }
+    .network { display:flex; justify-content:center; align-items:center; margin:0 0 26px; padding:16px 12px; border:1px solid var(--line); border-radius:8px; background:#fff; font-size:15px; font-weight:600; }
+    .fee { display:flex; align-items:center; gap:21px; background:#eef5ff; padding:15px 16px; border-radius:8px; font-size:17px; font-weight:500; margin-bottom:25px; }
+    .info { background:#1760ed; color:white; font-weight:800; border-radius:50%; width:29px; height:29px; display:grid; place-items:center; flex-shrink:0; }
+    .calc-heading { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; align-items:center; font-size:16px; font-weight:700; margin-bottom:15px; }
+    .ratio { font-size:15px; }
+    .amount { width:100%; height:78px; border:1.5px solid #8caae4; border-radius:12px; background:transparent; color:#122e5c; padding:14px 20px; font:500 25px Inter,Arial,sans-serif; outline:none; }
+    .amount:focus { border-color:var(--blue); box-shadow:0 0 0 3px #1759e51c; }
+    .summary { margin-top:20px; line-height:1.9; font-size:15px; font-weight:600; }
+    .summary strong { font-weight:700; }
+    .notice { margin-top:15px; line-height:1.8; font-size:15px; font-weight:500; }
+    .bottom { position:absolute; bottom:0; left:0; right:0; min-height:100px; display:grid; grid-template-columns:repeat(5,1fr); align-items:center; background:#f8fbff; border-top:1px solid #e8eef9; padding:12px 6px max(18px, env(safe-area-inset-bottom)); }
+    .nav-item { display:flex; flex-direction:column; gap:5px; align-items:center; font-size:11px; color:#6d7e9c; text-decoration:none; }
+    .nav-item svg { width:27px; height:27px; fill:currentColor; }
+    .nav-item.active { color:#1054e9; font-weight:700; }
+    .nav-item.active .circle { border-radius:50%; background:#125cef; color:white; width:40px; height:40px; display:grid; place-items:center; }
+    .nav-item.active svg { width:23px; height:23px; }
+    @media (min-width: 600px) { .phone { min-height:850px; margin:32px auto; border-radius:22px; overflow:hidden; } }
+    @media (max-width: 360px) { .phone { padding-left:16px; padding-right:16px; } .calc-heading,.ratio{font-size:13px;} .summary{font-size:14px;} }
+  </style>
+</head>
+<body>
+<main class="phone">
+  <header>USDT</header>
+  <section class="qr-area" aria-label="Deposit QR code">
+    <img src="qr.png" alt="Custom USDT BEP-20 QR code" onerror="this.style.display='none';document.getElementById('qr-fallback').style.display='block'" />
+    <div class="qr-fallback" id="qr-fallback">Place your QR image named<br><strong>qr.png
+
+    </strong><br>in the same folder as index.html</div>
+  </section>
+  <p class="trust-note">Note: This QR code is only scannable with Trust Wallet.</p>
+  <div class="help"><span class="play">▶</span> How Buy Quota?</div>
+  <section class="network">Network: BEP-20 (BNB Smart Chain)</section>
+  <section class="fee"><span class="info">!</span><span>You pay network fee.</span></section>
+  <div class="calc-heading"><span>Calculator</span><span class="ratio">Ratio: 1 USDT = 106 INR</span></div>
+  <input class="amount" id="amount" type="number" min="0" step="any" inputmode="decimal" value="1000" aria-label="USDT amount" />
+  <div class="summary" aria-live="polite">
+    <div>Estimated bonus: <strong id="bonus">2120.00</strong>(2%) INR</div>
+    <div>Activity ⓘ : <strong>318.00</strong> INR</div>
+    <div>First Top up: <strong>99</strong> INR</div>
+    <div>Total: <strong id="total">108537.00</strong> INR</div>
+  </div>
+  <p class="notice">• After the recharge is completed, please wait 3–5 minutes for the deposit to arrive.</p>
+  <nav class="bottom" aria-label="Bottom navigation">
+    <span class="nav-item"><svg viewBox="0 0 24 24"><path d="m12 2 10 9h-2v10h-6v-7h-4v7H4V11H2z"/></svg>Home</span>
+    <span class="nav-item active"><span class="circle"><svg viewBox="0 0 24 24"><path d="M3 7h18v4H3zm0 6h18v4H3zm8-10 4 3H7zm2 18-4-3h8z"/></svg></span>Deposit</span>
+    <span class="nav-item"><svg viewBox="0 0 24 24"><path d="M8 3h8v4h5v14H3V7h5zm2 0v4h4V5h-4z"/></svg>VIP</span>
+    <span class="nav-item"><svg viewBox="0 0 24 24"><path d="M2 4h9v7H2zm11 0h9v7h-9zM2 13h9v7H2zm11 0h9v7h-9z"/></svg>Team</span>
+    <span class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 2c6 0 10 4 10 10 0 5-4 9-10 10C6 21 2 17 2 12 2 6 6 2 12 2z"/><circle cx="8" cy="11" r="1.2" fill="#f8fbff"/><circle cx="16" cy="11" r="1.2" fill="#f8fbff"/></svg>Me</span>
+  </nav>
+</main>
+<script>
+  const amount = document.getElementById('amount');
+  function updateCalculator() {
+    const usdt = Math.max(0, Number(amount.value) || 0);
+    const inr = usdt * 106;
+    const bonus = inr * 0.02;
+    document.getElementById('bonus').textContent = bonus.toFixed(2);
+    document.getElementById('total').textContent = (inr + bonus + 318 + 99).toFixed(2);
+  }
+  amount.addEventListener('input', updateCalculator);
+  updateCalculator();
+</script>
+</body>
+</html>
