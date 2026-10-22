@@ -1,106 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <title>USDT Deposit — BEP-20</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--blue:#078cda;--light:#f8f8f8;--gray:#939393;--border:#e5e5e5;--nav-height:72px}
-*{box-sizing:border-box}html{min-height:100%;background:white}body{margin:0;color:var(--blue);font-family:Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-.app{width:100%;max-width:520px;margin:auto;min-height:100dvh;background:#fff;padding-bottom:calc(var(--nav-height) + 25px + env(safe-area-inset-bottom));position:relative}
-.topbar{height:78px;display:flex;align-items:flex-end;padding:0 16px 14px;border-bottom:1px solid #f1f1f1;gap:24px}
-.tab{font-size:17px;font-weight:700;color:#999;text-decoration:none;padding-bottom:1px}.tab.active{color:var(--blue)}
-.qr-box{height:176px;display:flex;align-items:center;justify-content:center;padding-top:6px}.qr-image{display:block;width:min(35vw,185px);min-width:124px;aspect-ratio:1;object-fit:contain}
-.qr-missing{display:none;width:137px;aspect-ratio:1;border:2px dashed #bdddeb;border-radius:8px;color:#447f9f;align-items:center;justify-content:center;text-align:center;padding:10px;font-size:12px;line-height:1.5}
-.trust{margin:0 15px 18px;text-align:center;color:#1986cb;font-size:11px;font-weight:600;line-height:1.45}
-.body{padding:0 16px}.help{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:650;margin:0 0 18px;padding:0 8px}.play{height:15px;width:15px;border:1.8px solid var(--blue);border-radius:50%;display:grid;place-items:center;font-size:7px;line-height:1;padding-left:1px}
-.network-card{min-height:77px;border:1px solid #e0e0e0;border-radius:5px;display:flex;align-items:center;padding:15px 20px;margin-bottom:20px;font-size:14px;font-weight:650;line-height:1.8}
-.network-card .network-label{display:block;font-weight:500}.network-card .network-value{display:block}
-.fee{background:#f8f8f8;border:1px solid #eaeaea;border-radius:4px;min-height:38px;padding:10px 16px;display:flex;align-items:center;gap:14px;margin-bottom:11px;font-size:15px;font-weight:500}
-.info{height:17px;width:17px;border-radius:50%;background:#158fe5;color:white;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
-.calc-header{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;margin-bottom:11px}.rate{white-space:nowrap;text-align:right}
-.amount{width:100%;height:45px;padding:6px 10px;border:1px solid #999;border-radius:5px;outline:0;color:#202020;font:600 17px Inter,Arial,sans-serif;background:white}.amount:focus{border-color:var(--blue);box-shadow:0 0 0 2px #028de320}
-.summary{font-size:13px;font-weight:650;line-height:1.65;margin-top:10px}.summary strong{font-weight:700}.notice{font-size:13px;font-weight:600;line-height:1.75;margin-top:11px}
-.chat{position:fixed;z-index:4;right:max(28px,calc((100vw - 520px)/2 + 28px));bottom:calc(var(--nav-height) + 23px + env(safe-area-inset-bottom));height:65px;width:65px;border:0;border-radius:50%;background:#02a6de;display:grid;place-items:center;box-shadow:0 7px 23px #00000017;cursor:pointer}.chat span{width:28px;height:30px;border-radius:55% 55% 4px 55%;background:white;transform:rotate(-1deg);display:block}.chat:focus-visible,.nav-item:focus-visible{outline:2px solid #164c9d;outline-offset:3px}
-.chat-message{display:none;position:fixed;right:max(15px,calc((100vw - 520px)/2 + 15px));bottom:calc(var(--nav-height) + 100px + env(safe-area-inset-bottom));background:white;color:#444;box-shadow:0 4px 25px #0002;border:1px solid #ddd;border-radius:12px;padding:13px;width:min(270px,90vw);z-index:5;font-size:13px}.chat-message.visible{display:block}
-.bottom{position:fixed;z-index:3;bottom:0;left:50%;transform:translateX(-50%);height:calc(var(--nav-height) + env(safe-area-inset-bottom));width:100%;max-width:520px;background:white;border-top:1px solid #f0f0f0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:7px 6px max(7px,env(safe-area-inset-bottom))}
-.nav-item{border:0;background:transparent;text-decoration:none;color:#999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;font-family:inherit;font-size:11px;font-weight:400;cursor:pointer}.nav-item svg{width:28px;height:28px;fill:currentColor}.nav-item.active{color:var(--blue)}.nav-item.active svg{color:var(--blue)}
-@media (min-width:521px){body{background:#e9edf1}.app{box-shadow:0 2px 30px #00000012}.qr-image{width:180px}.qr-box{height:225px}.topbar{height:88px}.body{padding:0 22px}.network-card{font-size:16px}.summary,.notice,.calc-header{font-size:15px}.fee{font-size:16px}.amount{height:55px}.trust{font-size:12px}}
-@media (max-width:340px){.body{padding:0 12px}.calc-header{font-size:11px}.help{font-size:13px}.summary,.notice{font-size:12px}}
-@media (prefers-reduced-motion:no-preference){.chat{transition:transform .15s}.chat:active{transform:scale(.96)}}
-
-/* Compact single-screen mobile layout */
-:root{--nav-height:clamp(48px,8dvh,62px)}
-html,body{height:100%;overflow-x:hidden}
-.app{height:100dvh;min-height:0;overflow:hidden;padding-bottom:calc(var(--nav-height) + env(safe-area-inset-bottom));display:flex;flex-direction:column}
-.topbar{height:clamp(41px,7dvh,57px);min-height:38px;flex:none;padding:0 15px 8px;gap:23px}
-.tab{font-size:clamp(13px,2.5vh,16px)}
-.qr-box{height:clamp(104px,22dvh,176px);min-height:0;flex:none;padding-top:1px}
-.qr-image{width:auto;height:min(94%,33vw,168px);min-width:0;max-width:96%;aspect-ratio:1;object-fit:contain}
-.qr-missing{width:min(30vw,145px);height:min(30vw,145px);font-size:10px}
-.trust{margin:0 12px clamp(4px,1.4dvh,12px);font-size:clamp(9px,1.4dvh,11px);line-height:1.25;flex:none}
-.body{padding:0 14px;min-height:0;flex:1;display:flex;flex-direction:column;justify-content:flex-start}
-.help{font-size:clamp(11px,1.8dvh,14px);gap:7px;margin:0 0 clamp(5px,1.3dvh,11px);padding:0 4px;flex:none}
-.play{height:14px;width:14px;font-size:7px}
-.network-card{min-height:0;padding:clamp(5px,1.2dvh,10px) 12px;margin:0 0 clamp(5px,1.3dvh,12px);font-size:clamp(11px,1.7dvh,13px);line-height:1.35;flex:none}
-.fee{min-height:0;padding:clamp(5px,1dvh,9px) 11px;gap:10px;margin:0 0 clamp(5px,1.2dvh,10px);font-size:clamp(11px,1.8dvh,14px);flex:none}
-.info{width:15px;height:15px;font-size:11px}
-.calc-header{font-size:clamp(10px,1.65dvh,13px);margin:0 0 clamp(4px,1dvh,8px);flex:none}
-.amount{height:clamp(34px,6dvh,46px);min-height:32px;padding:5px 10px;font-size:clamp(14px,2.6dvh,18px);flex:none}
-.summary{font-size:clamp(10px,1.7dvh,13px);line-height:1.4;margin-top:clamp(5px,1.1dvh,10px);flex:none}
-.notice{font-size:clamp(10px,1.6dvh,13px);line-height:1.4;margin:clamp(6px,1.2dvh,11px) 0 0;max-width:calc(100% - 58px);flex:none}
-.bottom{height:calc(var(--nav-height) + env(safe-area-inset-bottom));padding:5px 5px max(4px,env(safe-area-inset-bottom))}
-.nav-item{gap:2px;font-size:clamp(9px,1.45dvh,11px)}
-.nav-item svg{height:clamp(21px,3.9dvh,27px);width:clamp(21px,3.9dvh,27px)}
-.chat{height:clamp(39px,8dvh,55px);width:clamp(39px,8dvh,55px);right:max(14px,calc((100vw - 520px)/2 + 14px));bottom:calc(var(--nav-height) + 14px + env(safe-area-inset-bottom))}
-.chat span{height:45%;width:45%}
-.chat-message{bottom:calc(var(--nav-height) + 72px + env(safe-area-inset-bottom))}
-@media (min-width:521px){.app{height:100dvh}.qr-box{height:clamp(120px,24dvh,185px)}.qr-image{height:min(94%,180px);width:auto}.topbar{height:55px}.body{padding:0 22px}.network-card,.fee,.summary,.notice,.calc-header{font-size:13px}.amount{height:42px}.trust{font-size:11px}}
-@media (max-height:590px){.topbar{height:38px;padding-bottom:6px}.qr-box{height:clamp(83px,18dvh,110px)}.trust{font-size:9px;margin-bottom:4px}.help{margin-bottom:5px}.network-card{padding:4px 10px;margin-bottom:5px}.fee{padding:4px 10px;margin-bottom:5px}.calc-header{margin-bottom:4px}.amount{height:32px;min-height:32px}.summary{line-height:1.25;margin-top:4px}.notice{line-height:1.25;margin-top:4px;font-size:10px}}
-@media (max-width:340px){.body{padding:0 10px}.calc-header{font-size:10px}.notice{max-width:calc(100% - 40px)}}
+:root{--blue:#078dd7;--nav:clamp(55px,8.3dvh,72px);--space:clamp(5px,1.25dvh,13px)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--blue);background:#fff;-webkit-text-size-adjust:100%}
+button,input{font:inherit}
+.page{width:100%;max-width:520px;margin:0 auto;min-height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:#fff;position:relative}
+.tabs{height:clamp(48px,8dvh,76px);border-bottom:1px solid #eee;display:flex;align-items:end;gap:24px;padding:0 18px 12px;font-size:clamp(15px,2.3dvh,19px);font-weight:700}
+.tabs .inactive{color:#969696}
+.content{min-height:0;padding:0 17px;display:flex;flex-direction:column}
+.qr-region{flex:1 1 auto;min-height:130px;max-height:32dvh;display:flex;align-items:center;justify-content:center;padding:clamp(7px,1.5dvh,16px) 0}
+.qr-region img{display:block;width:auto;height:100%;max-width:min(53vw,238px);object-fit:contain;aspect-ratio:1}
+.qr-placeholder{display:none;width:min(33vw,170px);aspect-ratio:1;border:2px dashed #a4cfe5;border-radius:7px;align-items:center;justify-content:center;text-align:center;padding:10px;color:#478ab3;font-size:12px}
+.trust{text-align:center;margin:0 0 var(--space);font-size:clamp(10px,1.5dvh,12px);line-height:1.25;font-weight:600}
+.help{display:flex;gap:10px;align-items:center;font-size:clamp(12px,1.85dvh,16px);font-weight:700;margin-bottom:var(--space);padding-left:8px;min-height:19px}
+.play{width:18px;height:18px;border:2px solid var(--blue);border-radius:50%;display:grid;place-items:center;font-size:8px;padding-left:1px}
+.network{border:1px solid #e5e5e5;border-radius:5px;padding:clamp(7px,1.45dvh,13px) 15px;margin-bottom:var(--space);font-size:clamp(12px,1.8dvh,15px);font-weight:700;line-height:1.35}
+.network small{display:block;font-size:0.88em;font-weight:500}
+.fee{display:flex;align-items:center;gap:12px;border-radius:4px;background:#f7f7f7;border:1px solid #ededed;padding:clamp(7px,1.25dvh,11px) 13px;margin-bottom:var(--space);font-size:clamp(12px,1.8dvh,16px)}
+.exclamation{flex:none;width:19px;height:19px;border-radius:50%;background:#1394e4;color:white;display:grid;place-items:center;font-weight:700}
+.calctitle{display:flex;justify-content:space-between;align-items:center;gap:6px;white-space:nowrap;margin-bottom:var(--space);font-size:clamp(11px,1.7dvh,15px);font-weight:700}
+.amount{width:100%;height:clamp(38px,6.5dvh,58px);min-height:38px;border:1.5px solid #999;border-radius:6px;color:#282828;padding:6px 12px;font-size:clamp(19px,3dvh,25px);font-weight:600;outline-offset:2px;background:#fff}
+.details{font-size:clamp(11px,1.75dvh,15px);line-height:1.55;font-weight:700;margin:var(--space) 0 0}
+.notice{font-size:clamp(11px,1.7dvh,14px);line-height:1.45;font-weight:600;margin:var(--space) 55px var(--space) 0}
+.navigation{height:calc(var(--nav) + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:5px 4px max(5px,env(safe-area-inset-bottom));border-top:1px solid #ededed;background:white;z-index:2}
+.navitem{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;background:none;border:0;color:#989898;font-size:clamp(10px,1.5dvh,12px);padding:0;min-width:0}
+.navitem svg{width:clamp(21px,3.5dvh,31px);height:clamp(21px,3.5dvh,31px);fill:currentColor}
+.navitem.active{color:var(--blue)}
+.chat{position:absolute;bottom:calc(var(--nav) + env(safe-area-inset-bottom) + 17px);right:17px;width:clamp(43px,7.5dvh,64px);height:clamp(43px,7.5dvh,64px);border:0;border-radius:50%;background:#06a4db;display:grid;place-items:center;box-shadow:0 3px 16px #0002;z-index:1;cursor:pointer}
+.chat:after{content:"";background:white;width:43%;height:45%;border-radius:55% 55% 4px 55%}
+.chatbox{display:none;position:absolute;right:12px;bottom:calc(var(--nav) + env(safe-area-inset-bottom) + 88px);width:min(260px,80vw);padding:12px;border-radius:9px;background:white;color:#333;border:1px solid #ddd;box-shadow:0 3px 20px #0002;z-index:4;font-size:12px}.chatbox.show{display:block}
+@media(min-width:521px){body{background:#edf1f5}.page{box-shadow:0 0 28px #0001}}
+/* Short screens: compress QR first. If the device is exceptionally short,
+   preserve all text and allow scrolling instead of cutting information off. */
+@media(max-height:690px){:root{--space:5px;--nav:52px}.tabs{height:43px;padding-bottom:8px}.qr-region{min-height:95px;max-height:23dvh;padding:4px 0}.network{padding:6px 12px}.fee{padding:6px 11px}.content{padding:0 12px}.notice{font-size:11px}.details{line-height:1.35}}
+@media(max-height:530px){.page{min-height:100dvh}.qr-region{min-height:76px;max-height:18dvh}.content{min-height:auto}.page{grid-template-rows:auto auto auto}}
+@media(max-width:345px){.content{padding-left:11px;padding-right:11px}.calctitle{font-size:10px}.help{font-size:12px}.trust{font-size:10px}}
 </style>
 </head>
 <body>
-<main class="app">
- <header class="topbar" aria-label="Deposit currency"><span class="tab">INR</span><span class="tab active" aria-current="page">USDT</span></header>
- <section class="qr-box" aria-label="USDT BEP-20 deposit QR code">
-  <img class="qr-image" src="qr.png" alt="Scan the deposit QR code using Trust Wallet" onerror="this.hidden=true;document.getElementById('missing').style.display='flex'">
-  <div class="qr-missing" id="missing">Add your image as<br><strong>qr.png</strong><br>beside index.html</div>
- </section>
- <p class="trust">Note: This QR code is only scannable with Trust Wallet.</p>
- <div class="body">
-  <div class="help"><span class="play" aria-hidden="true">▶</span><span>How Buy Quota?</span></div>
-  <div class="network-card"><div><span class="network-label">Network</span><span class="network-value">BEP-20 (BNB Smart Chain)</span></div></div>
-  <div class="fee"><span class="info" aria-hidden="true">!</span><span>You pay network fee.</span></div>
-  <div class="calc-header"><span>Calculator</span><span class="rate">Ratio: 1 USDT = 109 INR</span></div>
-  <input class="amount" id="amount" type="number" min="0" step="any" inputmode="decimal" value="1000" aria-label="USDT amount">
-  <div class="summary" aria-live="polite">
-   <div>Estimated bonus: <strong id="bonus">2180.00</strong>(2%) INR</div>
-   <div>Activity ⓘ : <strong>318.00</strong> INR</div>
-   <div>Total: <strong id="total">111498.00</strong> INR</div>
-  </div>
-  <p class="notice">* After the recharge is completed, please wait 3–5 minutes for the deposit to arrive.</p>
- </div>
- <button class="chat" type="button" id="chat-toggle" aria-label="Help" aria-expanded="false"><span></span></button>
- <div id="chat-message" class="chat-message" role="status">For deposit help, contact your platform's official support channel.</div>
- <nav class="bottom" aria-label="Bottom navigation">
-  <button class="nav-item" type="button" data-name="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 10v11h7v-8h6v8h7V10zm0 14h1v5h-2v-5z"/></svg><span>Home</span></button>
-  <button class="nav-item active" type="button" data-name="Deposit" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12"/><path d="M5 9h14M5 15h14M14 6l-4 3 4 3M10 12l4 3-4 3" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Deposit</span></button>
-  <button class="nav-item" type="button" data-name="UPI"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6l1 4h6v16H2V6h6zm1.5 2-.6 2h4.2l-.6-2zM2 10h20v3H2z"/></svg><span>UPI</span></button>
-  <button class="nav-item" type="button" data-name="Team"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="3" width="14" height="8" rx="2"/><rect x="1" y="13" width="9" height="8" rx="2"/><rect x="12" y="13" width="11" height="8" rx="2"/></svg><span>Team</span></button>
-  <button class="nav-item" type="button" data-name="Me"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12"/><circle cx="8" cy="11" r="1" fill="white"/><circle cx="16" cy="11" r="1" fill="white"/></svg><span>Me</span></button>
- </nav>
+<main class="page">
+  <header class="tabs" aria-label="Currency"><span class="inactive">INR</span><span>USDT</span></header>
+  <section class="content">
+    <div class="qr-region" aria-label="BEP-20 QR code">
+      <img src="qr.png" alt="BEP-20 deposit QR" onerror="this.style.display='none';document.getElementById('missing-qr').style.display='flex'">
+      <div id="missing-qr" class="qr-placeholder">Put your image named <b>qr.png</b> next to index.html</div>
+    </div>
+    <p class="trust">Note: This QR code is only scannable with Trust Wallet.</p>
+    <div class="help"><span class="play">▶</span>How Buy Quota?</div>
+    <div class="network"><small>Network</small>BEP-20 (BNB Smart Chain)</div>
+    <div class="fee"><span class="exclamation">!</span>You pay network fee.</div>
+    <div class="calctitle"><span>Calculator</span><span>Ratio: 1 USDT = 109 INR</span></div>
+    <input id="amount" class="amount" type="number" value="1000" min="0" step="any" inputmode="decimal" aria-label="USDT amount">
+    <div class="details" aria-live="polite">
+      <div>Estimated bonus: <span id="bonus">2180.00</span>(2%) INR</div>
+      <div>Activity ⓘ : 318.00 INR</div>
+      <div>Total: <span id="total">111498.00</span> INR</div>
+    </div>
+    <p class="notice">* After the recharge is completed, please wait 3–5 minutes for the deposit to arrive.</p>
+  </section>
+  <button class="chat" id="chat" type="button" aria-label="Help" aria-expanded="false"></button>
+  <div class="chatbox" id="chatbox">Please contact official support for deposit assistance.</div>
+  <nav class="navigation" aria-label="Navigation">
+    <button class="navitem" type="button" data-page="Home"><svg viewBox="0 0 24 24"><path d="M12 2 2 10v12h8v-8h4v8h8V10z"/></svg>Home</button>
+    <button class="navitem active" type="button" aria-current="page"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M5 9h14m-14 6h14" fill="none" stroke="white" stroke-width="2"/></svg>Deposit</button>
+    <button class="navitem" type="button" data-page="UPI"><svg viewBox="0 0 24 24"><path d="M8 2h8l1 4h5v16H2V6h5zm2 2-.5 2h5L14 4zM2 10h20v2H2z"/></svg>UPI</button>
+    <button class="navitem" type="button" data-page="Team"><svg viewBox="0 0 24 24"><rect width="13" height="9" x="1" y="2" rx="2"/><rect width="9" height="10" x="1" y="13" rx="2"/><rect width="11" height="10" x="12" y="13" rx="2"/></svg>Team</button>
+    <button class="navitem" type="button" data-page="Me"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><circle cx="8" cy="11" r="1" fill="white"/><circle cx="16" cy="11" r="1" fill="white"/></svg>Me</button>
+  </nav>
 </main>
 <script>
-const input=document.getElementById('amount');
-function calculate(){const usdt=Math.max(0,Number(input.value)||0),base=usdt*109,bonus=base*.02;document.getElementById('bonus').textContent=bonus.toFixed(2);document.getElementById('total').textContent=(base+bonus+318).toFixed(2)}
-input.addEventListener('input',calculate);calculate();
-const chat=document.getElementById('chat-toggle'),message=document.getElementById('chat-message');chat.addEventListener('click',()=>{const open=message.classList.toggle('visible');chat.setAttribute('aria-expanded',String(open))});
-for(const item of document.querySelectorAll('.nav-item:not(.active)'))item.addEventListener('click',()=>{message.textContent=item.dataset.name+' page is not included in this single-page template.';message.classList.add('visible');chat.setAttribute('aria-expanded','true')});
+const amount=document.getElementById('amount');
+function update(){const value=Math.max(0,Number(amount.value)||0);const base=value*109;document.getElementById('bonus').textContent=(base*0.02).toFixed(2);document.getElementById('total').textContent=(base*1.02+318).toFixed(2)}
+amount.addEventListener('input',update);update();
+const chat=document.getElementById('chat'),box=document.getElementById('chatbox');
+chat.addEventListener('click',()=>{const open=box.classList.toggle('show');chat.setAttribute('aria-expanded',String(open))});
+for(const b of document.querySelectorAll('[data-page]'))b.addEventListener('click',()=>{box.textContent=b.dataset.page+' page is not included in this template.';box.classList.add('show');chat.setAttribute('aria-expanded','true')});
 </script>
 </body>
 </html>
